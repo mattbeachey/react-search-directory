@@ -5,7 +5,6 @@ import './App.css';
 
 function App() {
   const [finalEmployeeArray, setFinalEmployeeArray] = useState([])
-  const [reduceBy, setReduceBy] = useState(0)
 
   //an array of random users is created from randomuser.me/api
   const employeeArray = []
@@ -28,19 +27,25 @@ function App() {
       });
   }
 
-  for (let i = 0; i < reduceBy; i++) {
+  function removeEmployee(){
     finalEmployeeArray.pop()
+    return finalEmployeeArray
+  }
+
+  function remove(i){
+    const array = finalEmployeeArray.filter(function(friend){
+      console.log(i)
+      return friend.first !== i
+    })
+    return array
   }
 
   return (
     <div>
-      <button onClick={() => setReduceBy(reduceBy + 1)}>
+      <button onClick={() => setFinalEmployeeArray(removeEmployee())}>
         Remove Employee
     </button>
-      <button onClick={() => setReduceBy(reduceBy - 1)}>
-        Add Employee
-    </button>
-    <button onClick={() => setFinalEmployeeArray(employeeArray.slice(0))}>
+    <button onClick={() => setFinalEmployeeArray(employeeArray)}>
         Get Employees
     </button>
       <div className="App">
@@ -53,6 +58,7 @@ function App() {
           email={employee.email}
           phone={employee.phone}
           image={employee.image}
+          handleClick={() => setFinalEmployeeArray(remove(employee.first))}
           />
         ))}
       </div>
