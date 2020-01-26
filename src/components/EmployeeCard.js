@@ -3,25 +3,18 @@ import { useGetEmployee } from "../hooks/useGetEmployee"
 
 
 
-function EmployeeCard() {
+function EmployeeCard({ first, last, city, country, email, phone, image } ) {
 
     const { employee, getEmployee } = useGetEmployee()
-    console.log(employee.name)
-    console.log(employee)
-
     return (
         <div>
-            <h1>{employee.name && employee.name.first} {employee.name && employee.name.last}</h1>
-            <h2>{employee.location && employee.location.city}, {employee.location && employee.location.country}</h2>
-            <h3>{employee.email} </h3>
-            <h3>{employee.phone} </h3>
-            <img src={employee.picture && employee.picture.large}/>
+            <h1>{first} {last}</h1>
+            <h2>{city}, {country}</h2>
+            <h3>{email} </h3>
+            <h3>{phone} </h3>
+            <img src={image}/>
         </div>
-
-
     )
-
-
 }
 
 export default EmployeeCard;
