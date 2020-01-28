@@ -10,12 +10,13 @@ function App() {
   const employeeArray = []
   const numberDisplayed = 10;
   for (let i = 0; i < numberDisplayed; i++) {
-    axios.get('https://randomuser.me/api/')
+    axios.get('https://randomuser.me/api/?nat=us')
       .then(function (res) {
         let employee = res.data.results[0]
         const employeeObject = {
           first: employee.name.first,
           last: employee.name.last,
+          gender: employee.gender,
           city: employee.location.city,
           country: employee.location.country,
           email: employee.email,
@@ -27,18 +28,47 @@ function App() {
       });
   }
 
+  console.log(employeeArray)
+
   function removeEmployee(){
-    finalEmployeeArray.pop()
-    return finalEmployeeArray
+    employeeArray.pop()
+    console.log(employeeArray)
+    return employeeArray
   }
 
   function remove(i){
     const array = finalEmployeeArray.filter(function(friend){
       console.log(i)
-      return friend.first !== i
+      return friend.gender === i
     })
     return array
   }
+
+  function sortArray(){
+    employeeArray.sort((a, b) => {
+      if (a.last > b.last) {
+        return 1 
+      } else {
+        return -1
+      }
+    })
+    console.log(employeeArray)
+    return employeeArray
+  }
+
+  function testArray(){
+    return [{
+      first: "dsfasd",
+      last: "dsfasd",
+      city: "dsfasd",
+      country: "dsfasd",
+      email: "dsfasd",
+      phone: "dsfasd",
+      image: "dsfasd",
+    }]
+  }
+
+
 
   return (
     <div>
@@ -48,17 +78,21 @@ function App() {
     <button onClick={() => setFinalEmployeeArray(employeeArray)}>
         Get Employees
     </button>
+    <button onClick={() => setFinalEmployeeArray(sortArray())}>
+        Sort By Last Name
+    </button>
       <div className="App">
         {finalEmployeeArray.map((employee) => (
           <EmployeeCard
           first={employee.first}
           last={employee.last}
+          gender={employee.gender}
           city={employee.city}
           country={employee.country}
           email={employee.email}
           phone={employee.phone}
           image={employee.image}
-          handleClick={() => setFinalEmployeeArray(remove(employee.first))}
+          handleClick={() => setFinalEmployeeArray(remove(employee.gender))}
           />
         ))}
       </div>
