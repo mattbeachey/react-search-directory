@@ -10,6 +10,24 @@ function App() {
   const employeeArray = []
   const numberDisplayed = 10;
   for (let i = 0; i < numberDisplayed; i++) {
+    const randomNum = Math.floor(Math.random() * 4);
+    let department;
+    switch(randomNum) {
+      case 0:
+        department = "Development";
+        break;
+      case 1:
+        department = "Marketing";
+        break;
+      case 2:
+        department = "Sales";
+        break;
+      case 3:
+        department = "Paper Pushing";
+        break;
+      default:
+    }
+    console.log(department, randomNum)
     axios.get('https://randomuser.me/api/?nat=us')
       .then(function (res) {
         let employee = res.data.results[0]
@@ -17,34 +35,37 @@ function App() {
           first: employee.name.first,
           last: employee.name.last,
           gender: employee.gender,
+          department: department,
           city: employee.location.city,
           country: employee.location.country,
           email: employee.email,
           phone: employee.phone,
           image: employee.picture.large
         }
-        const first = employee.name.first
         employeeArray.push(employeeObject)
       });
   }
 
-  console.log(employeeArray)
+  function filterEmployees(i, category){
+    switch(category) {
+      case "byDepartment":
+        const array = finalEmployeeArray.filter(function(emp){
+          console.log(i)
+          return emp.department === i
+        })
+        return array
+      case "byGender":
+        const array2 = finalEmployeeArray.filter(function(emp){
+          console.log(i)
+          return emp.gender === i
+        })
+        return array2
+      default:
+    }
 
-  function removeEmployee(){
-    employeeArray.pop()
-    console.log(employeeArray)
-    return employeeArray
   }
 
-  function remove(i){
-    const array = finalEmployeeArray.filter(function(friend){
-      console.log(i)
-      return friend.gender === i
-    })
-    return array
-  }
-
-  function sortArray(){
+  function sortArray(sortParam){
     employeeArray.sort((a, b) => {
       if (a.last > b.last) {
         return 1 
@@ -56,25 +77,8 @@ function App() {
     return employeeArray
   }
 
-  function testArray(){
-    return [{
-      first: "dsfasd",
-      last: "dsfasd",
-      city: "dsfasd",
-      country: "dsfasd",
-      email: "dsfasd",
-      phone: "dsfasd",
-      image: "dsfasd",
-    }]
-  }
-
-
-
   return (
     <div>
-      <button onClick={() => setFinalEmployeeArray(removeEmployee())}>
-        Remove Employee
-    </button>
     <button onClick={() => setFinalEmployeeArray(employeeArray)}>
         Get Employees
     </button>
@@ -87,12 +91,14 @@ function App() {
           first={employee.first}
           last={employee.last}
           gender={employee.gender}
+          department={employee.department}
           city={employee.city}
           country={employee.country}
           email={employee.email}
           phone={employee.phone}
           image={employee.image}
-          handleClick={() => setFinalEmployeeArray(remove(employee.gender))}
+          handleClick={() => setFinalEmployeeArray(filterEmployees(employee.department, "byDepartment"))}
+          handleClick2={() => setFinalEmployeeArray(filterEmployees(employee.gender, "byGender"))}
           />
         ))}
       </div>
