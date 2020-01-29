@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import EmployeeCard from './components/EmployeeCard'
 import './App.css';
-
-let finishedDisplays = 30;
+const numberDisplayed = 30;
+let finishedDisplays = numberDisplayed;
 const employeeArray = []
 const revertedEmployeeArray = []
 
@@ -11,7 +11,6 @@ function App() {
   const [finalEmployeeArray, setFinalEmployeeArray] = useState([])
 
   //an array of random users is created from randomuser.me/api
-  const numberDisplayed = 30;
   if (finishedDisplays > 0) {
     for (let i = 0; i < numberDisplayed; i++) {
       const randomNum = Math.floor(Math.random() * 4);
@@ -32,6 +31,7 @@ function App() {
         default:
       }
       axios.get('https://randomuser.me/api/?nat=us')
+        // eslint-disable-next-line no-loop-func
         .then(function (res) {
           let employee = res.data.results[0]
           const employeeObject = {
@@ -73,14 +73,15 @@ function App() {
   }
 
   function sortArray(sortParam) {
-    employeeArray.sort((a, b) => {
+    console.log(finalEmployeeArray)
+    const sortedEmpArray = finalEmployeeArray.slice().sort((a, b) => {
       if (a.last > b.last) {
         return 1
       } else {
         return -1
       }
     })
-    return employeeArray
+    return sortedEmpArray
   }
 
   function searchFilter(value){
