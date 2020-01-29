@@ -13,3 +13,13 @@ h1{
 h2, h3 {
     font-family: 'Roboto Condensed', sans-serif;
 }
+
+.clickable {
+    cursor: pointer;
+    transition: all .15s;
+}
+
+.clickable:hover {
+    color: rgb(212, 161, 67);
+    transition: all .15s;
+}
