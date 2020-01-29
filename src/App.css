@@ -8,3 +8,29 @@
 
 }
 
+.input {
+  width: 100px;
+  opacity: 0;
+  transition: 10s;
+}
+
+.input2 {
+  width: 400px;
+  opacity: 1;
+  transition: 10s;
+}
+
+body {
+
+}
+
+.loading {
+  position: absolute;
+  top: 20vh;
+  width: 50%
+}
+
+.done {
+  display: none;
+}
+

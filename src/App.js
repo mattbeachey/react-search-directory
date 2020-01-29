@@ -2,16 +2,24 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import EmployeeCard from './components/EmployeeCard'
 import './App.css';
+import LoadingGif from './components/LoadingGif';
+import Header from './components/Header'
+
 const numberDisplayed = 30;
-let finishedDisplays = numberDisplayed;
+let displaysLeft = numberDisplayed;
 const employeeArray = []
 const revertedEmployeeArray = []
 
 function App() {
   const [finalEmployeeArray, setFinalEmployeeArray] = useState([])
+  const [loadingClass, setLoadingClass] = useState("loading")
+  const [color, setColor] = useState("#bde2ec")
+  const [bodyHeight, setBodyHeight] = useState("100vh")
+  const [cardClass, setCardClass] = useState("none")
 
   //an array of random users is created from randomuser.me/api
-  if (finishedDisplays > 0) {
+  //each random user is randomly assigned a department
+  if (displaysLeft > 0) {
     for (let i = 0; i < numberDisplayed; i++) {
       const randomNum = Math.floor(Math.random() * 4);
       let department;
@@ -47,13 +55,20 @@ function App() {
           }
           revertedEmployeeArray.push(employeeObject)
           employeeArray.push(employeeObject)
-          finishedDisplays--
-          if (finishedDisplays == 0) {
+          displaysLeft--
+          if (displaysLeft === 0) {
+            console.log("last loop")
             setFinalEmployeeArray(employeeArray)
+            setLoadingClass("done")
+            setBodyHeight("100%")
+            setColor("#3e8ca2")
+            setCardClass("card")
           }
         });
     }
   }
+
+  console.log(cardClass)
 
   function filterEmployees(i, category) {
     switch (category) {
@@ -73,7 +88,6 @@ function App() {
   }
 
   function sortArray(sortParam) {
-    console.log(finalEmployeeArray)
     const sortedEmpArray = finalEmployeeArray.slice().sort((a, b) => {
       if (a.last > b.last) {
         return 1
@@ -84,29 +98,41 @@ function App() {
     return sortedEmpArray
   }
 
-  function searchFilter(value){
-    const filteredEmpArray = employeeArray.slice().filter(function(employee){
-        const fullName = (employee.first + " " + employee.last ).toLowerCase();
-        return fullName.indexOf(value.toLowerCase()) > -1
+  function searchFilter(value) {
+    const filteredEmpArray = employeeArray.slice().filter(function (employee) {
+      const fullName = (employee.first + " " + employee.last).toLowerCase();
+      return fullName.indexOf(value.toLowerCase()) > -1
     })
     setFinalEmployeeArray(filteredEmpArray)
   }
 
   return (
-    <div>
-      <button onClick={() => setFinalEmployeeArray(employeeArray)}>
-        Get Employees
-    </button>
+    <div style={{
+      minHeight: "100vh",
+      backgroundColor: `${color}`,
+      transition: "all 2s"
+
+    }}>
       <button onClick={() => setFinalEmployeeArray(sortArray())}>
         Sort By Last Name
     </button>
       <button onClick={() => setFinalEmployeeArray(revertedEmployeeArray)}>
         Show All Employees
     </button>
-    <input onChange={event => {
-      const value = event.target.value
-      searchFilter(value);
-      }}/>
+      <input onChange={event => {
+        const value = event.target.value
+        searchFilter(value);
+      }} />
+      <Header 
+      handleClick3={() => setFinalEmployeeArray(sortArray())}
+      handleClick4={() => setFinalEmployeeArray(revertedEmployeeArray)}
+      handleChange={event => {
+        const value = event.target.value
+        searchFilter(value);
+      }}
+      />
+      <LoadingGif gifClass={loadingClass} />
+
       <div className="cardBox">
         {finalEmployeeArray.map((employee) => (
           <EmployeeCard
@@ -121,6 +147,7 @@ function App() {
             image={employee.image}
             handleClick={() => setFinalEmployeeArray(filterEmployees(employee.department, "byDepartment"))}
             handleClick2={() => setFinalEmployeeArray(filterEmployees(employee.gender, "byGender"))}
+            cardClass={cardClass}
           />
         ))}
       </div>

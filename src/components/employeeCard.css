@@ -1,17 +1,47 @@
+.none {
+    opacity: 0;
+}
+
 .card {
-    border: 2px solid black;
     width: 350px;
     border-radius: 20px;
     text-align: center;
-    margin-top: 40px;
+    margin: 20px 0 20px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    opacity: 1;
+    transition: all 1s;
+    box-shadow:  0 0 9px 4px #ecf1ebc0;
 }
 
 h1{
     font-family: 'Oswald', sans-serif;
+    color: #ecf1eb;
+    border-bottom: 2px solid #ecf1eb88;
+    padding-bottom: 15px;
+    width: 95%;
 }
 
 h2, h3 {
     font-family: 'Roboto Condensed', sans-serif;
+    color: #ecf1eb;
+    margin: 10px 0 10px 0;
+}
+
+.name {
+    color: #3e8ca2;
+
+}
+
+.card-title {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    width: 352px;
+    background-color: #ecf1eb;
+    height: 100px;
+    transition: 10s;
 }
 
 .clickable {
@@ -22,4 +52,11 @@ h2, h3 {
 .clickable:hover {
     color: rgb(212, 161, 67);
     transition: all .15s;
+}
+
+.image {
+    height: 150px;
+    width: 150px;
+    border-radius: 75px;
+    margin-bottom: 20px;
 }
