@@ -1,0 +1,15 @@
+.card {
+    border: 2px solid black;
+    width: 350px;
+    border-radius: 20px;
+    text-align: center;
+    margin-top: 40px;
+}
+
+h1{
+    font-family: 'Oswald', sans-serif;
+}
+
+h2, h3 {
+    font-family: 'Roboto Condensed', sans-serif;
+}

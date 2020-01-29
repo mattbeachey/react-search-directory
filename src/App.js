@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import EmployeeCard from './components/EmployeeCard'
 import './App.css';
@@ -85,7 +85,7 @@ function App() {
     <button onClick={() => setFinalEmployeeArray(sortArray())}>
         Sort By Last Name
     </button>
-      <div className="App">
+      <div className="cardBox">
         {finalEmployeeArray.map((employee) => (
           <EmployeeCard
           first={employee.first}
