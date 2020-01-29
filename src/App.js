@@ -59,6 +59,7 @@ function App() {
           revertedEmployeeArray.push(employeeObject)
           employeeArray.push(employeeObject)
           displaysLeft--
+          // the below operations only happen once, on the last loop
           if (displaysLeft === 0) {
             setFinalEmployeeArray(employeeArray)
             setLoadingClass("done")
