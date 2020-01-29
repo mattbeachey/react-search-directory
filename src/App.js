@@ -5,7 +5,8 @@ import './App.css';
 import LoadingGif from './components/LoadingGif';
 import Header from './components/Header'
 
-const numberDisplayed = 30;
+
+const numberDisplayed = 40;
 let displaysLeft = numberDisplayed;
 const employeeArray = []
 const revertedEmployeeArray = []
@@ -13,9 +14,11 @@ const revertedEmployeeArray = []
 function App() {
   const [finalEmployeeArray, setFinalEmployeeArray] = useState([])
   const [loadingClass, setLoadingClass] = useState("loading")
+  const [loadingClass2, setLoadingClass2] = useState("loadText")
+  const [navClass, setNavClass] = useState("noNav")
   const [color, setColor] = useState("#bde2ec")
-  const [bodyHeight, setBodyHeight] = useState("100vh")
   const [cardClass, setCardClass] = useState("none")
+  
 
   //an array of random users is created from randomuser.me/api
   //each random user is randomly assigned a department
@@ -38,7 +41,7 @@ function App() {
           break;
         default:
       }
-      axios.get('https://randomuser.me/api/?nat=us')
+      axios.get('https://randomuser.me/api')
         // eslint-disable-next-line no-loop-func
         .then(function (res) {
           let employee = res.data.results[0]
@@ -57,18 +60,18 @@ function App() {
           employeeArray.push(employeeObject)
           displaysLeft--
           if (displaysLeft === 0) {
-            console.log("last loop")
             setFinalEmployeeArray(employeeArray)
             setLoadingClass("done")
-            setBodyHeight("100%")
+            setLoadingClass2("done")
             setColor("#3e8ca2")
             setCardClass("card")
+            setNavClass("nav")
           }
         });
     }
   }
 
-  console.log(cardClass)
+  //-------------------------funcitons to manipulate arrays via onClicks from components---------------------
 
   function filterEmployees(i, category) {
     switch (category) {
@@ -77,9 +80,9 @@ function App() {
           return emp.department === i
         })
         return array
-      case "byGender":
+      case "byCountry":
         const array2 = finalEmployeeArray.filter(function (emp) {
-          return emp.gender === i
+          return emp.country === i
         })
         return array2
       default:
@@ -106,24 +109,17 @@ function App() {
     setFinalEmployeeArray(filteredEmpArray)
   }
 
+
+//----------------components----------------------------
   return (
     <div style={{
       minHeight: "100vh",
       backgroundColor: `${color}`,
-      transition: "all 2s"
+      transition: "all 4s"
 
     }}>
-      <button onClick={() => setFinalEmployeeArray(sortArray())}>
-        Sort By Last Name
-    </button>
-      <button onClick={() => setFinalEmployeeArray(revertedEmployeeArray)}>
-        Show All Employees
-    </button>
-      <input onChange={event => {
-        const value = event.target.value
-        searchFilter(value);
-      }} />
       <Header 
+      navBarClass={navClass}
       handleClick3={() => setFinalEmployeeArray(sortArray())}
       handleClick4={() => setFinalEmployeeArray(revertedEmployeeArray)}
       handleChange={event => {
@@ -131,7 +127,7 @@ function App() {
         searchFilter(value);
       }}
       />
-      <LoadingGif gifClass={loadingClass} />
+      <LoadingGif gifClass={loadingClass} loadText={loadingClass2} />
 
       <div className="cardBox">
         {finalEmployeeArray.map((employee) => (
@@ -146,7 +142,7 @@ function App() {
             phone={employee.phone}
             image={employee.image}
             handleClick={() => setFinalEmployeeArray(filterEmployees(employee.department, "byDepartment"))}
-            handleClick2={() => setFinalEmployeeArray(filterEmployees(employee.gender, "byGender"))}
+            handleClick2={() => setFinalEmployeeArray(filterEmployees(employee.country, "byCountry"))}
             cardClass={cardClass}
           />
         ))}

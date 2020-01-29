@@ -3,7 +3,7 @@
 }
 
 .card {
-    width: 350px;
+    width: 280px;
     border-radius: 20px;
     text-align: center;
     margin: 20px 0 20px 0;
@@ -12,8 +12,9 @@
     justify-content: space-around;
     align-items: center;
     opacity: 1;
-    transition: all 1s;
-    box-shadow:  0 0 9px 4px #ecf1ebc0;
+    transition: 1s;
+    border: 2px solid #ecf1eb;
+    box-shadow:  0 -2px 9px 2px #ecf1eb4f;
 }
 
 h1{
@@ -38,10 +39,10 @@ h2, h3 {
 .card-title {
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
-    width: 352px;
+    width: 283px;
     background-color: #ecf1eb;
     height: 100px;
-    transition: 10s;
+    transition: 1s;
 }
 
 .clickable {

@@ -11,8 +11,7 @@ function EmployeeCard({ first, last, gender, department, city, country, email, p
                 <h1 className="name">{first} {last}</h1>
             </div>
             <h1 className="clickable" onClick={handleClick}>{department}</h1>
-            <h2 className="clickable" onClick={handleClick2}>{gender}</h2>
-            <h2>{city}, {country}</h2>
+            <h2 className="clickable" onClick={handleClick2}>{city}, {country}</h2>
             <h3>{email} </h3>
             <h3>{phone} </h3>
             <img className="image" src={image} alt="Employee Portrait" />
