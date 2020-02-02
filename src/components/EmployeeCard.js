@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useState, useEffect} from "react";
 import "./employeeCard.css";
 
 
 
-function EmployeeCard({ first, last, gender, department, city, country, email, phone, image, handleClick, handleClick2, cardClass }) {
+function EmployeeCard({ first, last, department, city, country, email, phone, image, handleClick, handleClick2, cardClass }) {
 
+    console.log(cardClass)
+
+    const [carddd, setCarddd] = useState("none")
+
+    useEffect(function(){
+        console.log("changed")
+        setCarddd("card")
+    }, [cardClass])
+    
     return (
-        <div className="card">
+        <div className={carddd}>
             <div className="card-title">
                 <h1 className="name">{first} {last}</h1>
             </div>

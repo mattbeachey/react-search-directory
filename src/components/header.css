@@ -1,6 +1,6 @@
 .noNav {
     opacity: 0;
-    transition: .6s;
+    transition: 2s;
 }
 
 .nav {
@@ -8,7 +8,7 @@
     display: flex;
     flex-direction: column;
     z-index: 100;
-    transition: .6s;
+    transition: 2s;
 }
 
 .topRow {
@@ -50,6 +50,7 @@ button:hover {
     background-color: #ecf1eb;
     color: #3e8ca2;
     transition: .2s;
+    box-shadow:  0 -2px 9px 5px #ecf1eb4f;
 }
 
 input {
@@ -63,6 +64,16 @@ input {
     border: none;
     padding: 8px;
 
+}
+
+button:focus {
+    box-shadow:  0 -2px 9px 10px #ecf1eb4f;
+    outline: none;
+}
+
+input:focus {
+    box-shadow:  0 -2px 9px 10px #ecf1eb4f;
+    outline: none;
 }
 
 p {

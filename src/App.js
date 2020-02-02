@@ -48,7 +48,6 @@ function App() {
           const employeeObject = {
             first: employee.name.first,
             last: employee.name.last,
-            gender: employee.gender,
             department: department,
             city: employee.location.city,
             country: employee.location.country,
@@ -135,7 +134,6 @@ function App() {
           <EmployeeCard
             first={employee.first}
             last={employee.last}
-            gender={employee.gender}
             department={employee.department}
             city={employee.city}
             country={employee.country}
